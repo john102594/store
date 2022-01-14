@@ -1,0 +1,53 @@
+docker inspect  -> IP docker
+npm i pg -> instala postgres
+npm i @types/pg -D instala tipado para pg en desarrollo
+
+//Creacion de un servicio con el patron Repository
+@Injectable()
+export class BrandsService {
+  constructor(@InjectRepository(Brand) private brandRepo: Repository<Brand>) {}
+
+
+//TypeORM
+npm run migrations:generate -- nombre -> Crear migracion
+npm run migrations:run -> corre migracion
+
+//Para crear un entity se debe importar de typeorm los decoradores
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+Y usarlos
+Luego se debe importar el entiti en el module e importar TypeOrmModule
+en los imports llamar a TypeOrmModule.forfFeature([Enteity1,Entity2])
+
+CreateDateColumn,
+UpdateDateColumn,
+
+//Relaciones:
+/*Relacion Uno a Uno*/
+  //Solo se debe usar el Join Column en la entidad que quiero
+  //que tenga la columna que carga la relacion
+
+  //En la entidad de usuario:
+    OneToOne, JoinColumn -> importarlo de typeorm
+    import { Customer} from './customer.entity'
+    @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+    @JoinColumn()
+    customer: Customer;
+
+  //En la entidad de customer
+    OneToOne -> importarlo de typeorm
+    import { User} from './user.entity'
+    @OneToOne(() => User, (user) => user.customer, { nullable: true })
+    user: User;
+
+/*Controladores*/
+
+/*Dto*/
+Agregar al DTO
+  @IsOptional()
+  @IsPositive()
+  @ApiProperty()
+  readonly customerId: number;

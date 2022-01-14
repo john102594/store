@@ -15,8 +15,8 @@ export class AppController {
     return 'yo soy nuevo';
   }
 
-  @Get('/ruta/')
-  hello() {
-    return 'con /sas/';
+  @Get('/tasks/')
+  task() {
+    return this.appService.getTasks();
   }
 }
