@@ -51,3 +51,16 @@ Agregar al DTO
   @IsPositive()
   @ApiProperty()
   readonly customerId: number;
+
+
+// Para crear paginacion se debe realizar la consulta con
+take: limit,
+skip: offset
+
+Nota: para que un parametro de una funcion sea opcional se debe agregar ssigno de ?
+params?: Tipado
+
+Nota: para hacer que nestjs parsee a numero los numeros recibidos desde la query en main.ts Agregar
+transformOptions: {
+        enableImplicitConversion: true,
+      },

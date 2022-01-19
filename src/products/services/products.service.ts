@@ -1,11 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Logger } from '@nestjs/common';
 
 import { Product } from './../entities/product.entity';
 import { Category } from './../entities/category.entity';
 import { Brand } from './../entities/brand.entity';
-import { CreateProductDto, UpdateProductDto } from './../dtos/products.dtos';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+  FilterProductDto,
+} from './../dtos/products.dtos';
 
 @Injectable()
 export class ProductsService {
@@ -15,7 +20,16 @@ export class ProductsService {
     @InjectRepository(Brand) private brandRepo: Repository<Brand>,
   ) {}
 
-  async findAll() {
+  async findAll(params?: FilterProductDto) {
+    if (params) {
+      const { limit, offset } = params;
+      return await this.productRepo.find({
+        relations: ['brand'],
+        take: limit,
+        skip: offset,
+      });
+    }
+    Logger.warn('info');
     return await this.productRepo.find({ relations: ['brand'] });
   }
 

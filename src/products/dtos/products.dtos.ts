@@ -4,6 +4,8 @@ import {
   IsNotEmpty,
   IsPositive,
   IsArray,
+  IsOptional,
+  Min,
 } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
@@ -32,7 +34,7 @@ export class CreateProductDto {
   readonly image: string;
 
   @IsPositive()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty()
   readonly brandId: number;
 
@@ -42,3 +44,15 @@ export class CreateProductDto {
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
+
+export class FilterProductDto {
+  @IsOptional()
+  @IsPositive()
+  @ApiProperty()
+  limit: number;
+
+  @IsOptional()
+  @Min(0)
+  @ApiProperty()
+  offset: number;
+}
