@@ -11,12 +11,15 @@ import {
 import { Person } from './person.entity';
 
 @Entity()
-export class Customer {
+export class Employee {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  readonly max_credit: number;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  readonly job: string;
+
+  @Column({ default: 0 })
+  readonly salary: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

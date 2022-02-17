@@ -4,25 +4,24 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
-import { Customer } from './customer.entity';
+import { InventoryTransaction } from './inventory-transactions.entity';
 
 @Entity()
-export class User {
+export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 255 })
-  email: string;
+  name: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  password: string;
+  @Column({ type: 'text', unique: true })
+  sku: string;
 
-  @Column({ type: 'varchar', length: 100 })
-  role: string;
+  @Column({ type: 'varchar', nullable: true })
+  image: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
@@ -30,7 +29,9 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @OneToOne(() => Customer, { nullable: false })
-  @JoinColumn()
-  customer: Customer;
+  @OneToMany(
+    () => InventoryTransaction,
+    (inventoryTransaction) => inventoryTransaction.product,
+  )
+  transations: InventoryTransaction[];
 }

@@ -3,29 +3,29 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CustomerController } from './controllers/customers.controller';
 import { CustomersService } from './services/customers.service';
-import { Customer } from './entities/customer.entity';
+
 import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
 import { User } from './entities/user.entity';
-import { ProductsModule } from '../products/products.module';
-import { OrdersController } from './controllers/orders.controller';
-import { OrdersService } from './services/orders.service';
-import { Order } from './entities/order.entity';
-import { OrderItemController } from './controllers/order-item.controller';
-import { OrderItemService } from './services/order-item.service';
-import { OrderItem } from './entities/order-item.entity';
+
+import { Customer } from './entities/customer.entity';
+import { Company } from './entities/company.entity';
+import { Employee } from './entities/employee.entity';
+import { Person } from './entities/person.entity';
+import { Supplier } from './entities/supplier.entity';
 
 @Module({
   imports: [
-    ProductsModule,
-    TypeOrmModule.forFeature([User, Customer, Order, OrderItem]),
+    TypeOrmModule.forFeature([
+      User,
+      Customer,
+      Company,
+      Employee,
+      Person,
+      Supplier,
+    ]),
   ],
-  controllers: [
-    CustomerController,
-    UsersController,
-    OrdersController,
-    OrderItemController,
-  ],
-  providers: [CustomersService, UsersService, OrdersService, OrderItemService],
+  controllers: [CustomerController, UsersController],
+  providers: [CustomersService, UsersService],
 })
 export class UsersModule {}

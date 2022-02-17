@@ -1,22 +1,20 @@
 import {
   PrimaryGeneratedColumn,
-  Column,
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 
 import { Person } from './person.entity';
+import { Company } from './company.entity';
 
 @Entity()
-export class Customer {
+export class Supplier {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ nullable: true })
-  readonly max_credit: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
@@ -27,4 +25,7 @@ export class Customer {
   @OneToOne(() => Person, { nullable: false })
   @JoinColumn()
   person: Person;
+
+  @ManyToOne(() => Company, (company) => company.supplier)
+  company: Company;
 }
